@@ -11,3 +11,4 @@ httpx
 python-dotenv
 requests
 cloudinary
+email-validator
