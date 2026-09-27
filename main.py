@@ -30,7 +30,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173", 
-        frontend_url  # <-- Faltaba agregar la variable aquí
+        "https://front-seguridad-logistica-app.vercel.app"  # <-- Faltaba agregar la variable aquí
     ], 
     allow_credentials=True,
     allow_methods=["*"],
