@@ -355,3 +355,28 @@ def eliminar_manual(manual_id: int, db: Session = Depends(get_db)):
     db.delete(manual)
     db.commit()
     return {"mensaje": "Manual eliminado correctamente"}
+
+@app.get("/setup-demo")
+def setup_demo_users(db: Session = Depends(get_db)):
+    usuarios_demo = [
+        {"email": "operario@empresa.com", "rol": "operario"},
+        {"email": "rrhh@empresa.com", "rol": "rrhh"},
+        {"email": "admin@empresa.com", "rol": "admin"}
+    ]
+    
+    creados = []
+    for u in usuarios_demo:
+        usuario_existente = db.query(models.Usuario).filter(models.Usuario.email == u["email"]).first()
+        if not usuario_existente:
+            # Asegurate de usar tu función de encriptación real aquí
+            clave_encriptada = security.get_password_hash("demo1234") 
+            nuevo_usuario = models.Usuario(
+                email=u["email"], 
+                hashed_password=clave_encriptada, 
+                rol=u["rol"]
+            )
+            db.add(nuevo_usuario)
+            creados.append(u["email"])
+            
+    db.commit()
+    return {"mensaje": "Ejecución completada", "cuentas_creadas": creados}

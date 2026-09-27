@@ -1,11 +1,12 @@
+import os
 from datetime import datetime, timedelta
 from passlib.context import CryptContext
 from jose import jwt
 
-# En producción, esto va en un archivo .env oculto
-SECRET_KEY = "1894"
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 120 # El token dura 2 horas
+# Obtenemos las credenciales del entorno
+SECRET_KEY = os.getenv("SECRET_KEY")
+ALGORITHM = os.getenv("ALGORITHM", "HS256") # Mantenemos HS256 como valor por defecto si no se especifica
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "120"))
 
 # Configuración de Bcrypt para hashear contraseñas
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
