@@ -329,7 +329,7 @@ async def chat_con_manuales(chat: schemas.ChatMensaje, db: Session = Depends(get
     # 1. Buscamos el último manual subido para usarlo como contexto base (o podrías buscar en todos)
     manual_reciente = db.query(models.Manual).order_by(models.Manual.id.desc()).first()
     
-    url_webhook_n8n = os.getenv("N8N_WEBHOOK_URL")
+    url_webhook_n8n = os.getenv("N8N_CHAT_WEBHOOK_URL")
     
     payload = {
         "pregunta": chat.pregunta,
