@@ -10,3 +10,4 @@ python-multipart
 httpx
 python-dotenv
 requests
+cloudinary
