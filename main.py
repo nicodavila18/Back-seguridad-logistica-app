@@ -24,7 +24,7 @@ load_dotenv()
 app = FastAPI()
 
 # Reemplazá esto con el link exacto que te dio Vercel
-frontend_url = os.getenv("FRONTEND_URL", "https://front-seguridad-logistica-app.vercel.app/login")
+frontend_url = os.getenv("FRONTEND_URL", "https://front-seguridad-logistica-app.vercel.app")
 
 app.add_middleware(
     CORSMiddleware,
