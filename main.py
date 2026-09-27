@@ -28,7 +28,10 @@ frontend_url = os.getenv("FRONTEND_URL", "https://front-seguridad-logistica-app.
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"], 
+    allow_origins=[
+        "http://localhost:5173", 
+        frontend_url  # <-- Faltaba agregar la variable aquí
+    ], 
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
