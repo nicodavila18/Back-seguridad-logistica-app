@@ -339,7 +339,8 @@ async def chat_con_manuales(chat: schemas.ChatMensaje, db: Session = Depends(get
     async with httpx.AsyncClient() as client:
         try:
             # Llamamos a n8n para que Gemini procese la consulta con el PDF
-            respuesta_n8n = await client.post(url_webhook_n8n, json=payload, timeout=15.0)
+            # Cambiá el timeout a 60.0
+            respuesta_n8n = await client.post(url_webhook_n8n, json=payload, timeout=60.0)
             datos_ia = respuesta_n8n.json()
             
             # 1. Buscamos en todas las posibles claves que usa n8n por defecto
