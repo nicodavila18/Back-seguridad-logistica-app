@@ -342,8 +342,17 @@ async def chat_con_manuales(chat: schemas.ChatMensaje, db: Session = Depends(get
             respuesta_n8n = await client.post(url_webhook_n8n, json=payload, timeout=15.0)
             datos_ia = respuesta_n8n.json()
             
-            return {"respuesta": datos_ia.get("texto_respuesta", "Respuesta generada por el manual oficial.")}
+            # 1. Buscamos en todas las posibles claves que usa n8n por defecto
+            texto_final = datos_ia.get("text") or datos_ia.get("output") or datos_ia.get("texto_respuesta")
+            
+            # 2. Si n8n manda la información con otra estructura, la imprimimos en pantalla para verla
+            if not texto_final:
+                texto_final = f"Datos recibidos (debug): {datos_ia}"
+                
+            return {"respuesta": texto_final}
+            
         except Exception as e:
+            print(f"ERROR CRÍTICO N8N: {str(e)}")
             # Fallback de seguridad si n8n no está activo en ese segundo
             return {"respuesta": f"Consultando protocolos de Planta Sur sobre: '{chat.pregunta}'. Todos los operarios deben regirse bajo la Ley N° 25.877."}
 
