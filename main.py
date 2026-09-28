@@ -353,7 +353,7 @@ async def chat_con_manuales(chat: schemas.ChatMensaje, db: Session = Depends(get
             return {"respuesta": texto_final}
             
         except Exception as e:
-            print(f"ERROR CRÍTICO N8N: {str(e)}")
+            print(f"ERROR CRÍTICO N8N: {repr(e)}")
             # Fallback de seguridad si n8n no está activo en ese segundo
             return {"respuesta": f"Consultando protocolos de Planta Sur sobre: '{chat.pregunta}'. Todos los operarios deben regirse bajo la Ley N° 25.877."}
 
